@@ -1,8 +1,14 @@
 //model 1.0
 const event = (sequelize, DataTypes) => {
   const Event = sequelize.define('event',{
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      unique: true
+    },
     name: {
       type: DataTypes.STRING,
+      unique: true
     },
     coords: {
       type: DataTypes.ARRAY(DataTypes.DECIMAL),
@@ -16,17 +22,20 @@ const event = (sequelize, DataTypes) => {
     icon: {
       type: DataTypes.STRING,
     },
-    id: {
-      type: DataTypes.INT,
-    },
     lifespan: {
-      type: DataTypes.INT,
-    },
-  })
+      type: DataTypes.INTEGER,
+    }
 
-  /*Event.associate = events => {
-    Event.belongsTo(events.User)
-  } */
+  });
+
+  // Find an event by its unique identifier
+  Event.findById = async (eventId) => {
+    return await Event.findOne({
+      where: {id: eventId}
+    });
+  };
+
+
   return Event;
 };
 

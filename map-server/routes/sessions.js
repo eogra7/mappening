@@ -2,8 +2,11 @@ import { Router } from 'express';
 
 const router = Router();
 
-router.get('/', (req,res) => {
-  return res.send(req.context.models.user[req.context.me.id]);
+router.get('/', async (req,res) => {
+  const user = await req.context.models.User.findByPk(
+      req.context.me.username,
+  );
+  return res.send(user);
 });
 
 export default router;

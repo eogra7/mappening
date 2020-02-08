@@ -1,6 +1,6 @@
-import session from './sessions';
+import sessions from './sessions';
 import events from './events';
-import user from './users';
+import users from './users';
 
 export default{
   sessions,
