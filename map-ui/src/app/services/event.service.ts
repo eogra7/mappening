@@ -1,13 +1,12 @@
-import {Injectable} from '@angular/core';
-import {of} from 'rxjs';
+import { Injectable } from '@angular/core';
+import { of } from 'rxjs';
+import { IEvent } from '../models/event';
 
 @Injectable({
-  providedIn: 'root'
-
+  providedIn: 'root',
 })
 export class EventService {
-
-  private _events = [
+  private _events: IEvent[] = [
     {
       title: 'HackBeanpot 2020',
       summary:
@@ -27,6 +26,5 @@ export class EventService {
     return of(this._events);
   }
 
-  constructor() {
-  }
+  constructor() {}
 }

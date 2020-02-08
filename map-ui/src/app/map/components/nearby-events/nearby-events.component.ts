@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {EventService} from '../../../services/event.service';
+import { EventService } from '../../../services/event.service';
 
 @Component({
   selector: 'app-nearby-events',
@@ -65,9 +65,7 @@ import {EventService} from '../../../services/event.service';
 export class NearbyEventsComponent implements OnInit {
   events$ = this.events.getEvents$();
 
-  constructor(private readonly events: EventService) {
-
-  }
+  constructor(private readonly events: EventService) {}
 
   ngOnInit() {}
 
