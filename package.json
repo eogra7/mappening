@@ -1,7 +1,19 @@
 {
   "name": "mapwithstuff",
   "version": "1.0.0",
+  "scripts": {
+    "start-backend": "nodemon --exec babel-node map-server/index.js"
+  },
   "dependencies": {
-    "@angular/cli": "^9.0.1"
+    "@angular/cli": "^9.0.1",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.8.4",
+    "@babel/node": "^7.8.4",
+    "@babel/preset-env": "^7.8.4",
+    "nodemon": "^2.0.2"
   }
 }
