@@ -1,0 +1,27 @@
+
+:host {
+  width: 100vw;
+  height: 100vh;
+  background-color: lightblue;
+}
+
+p.placeholder-text {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#map {
+  height: 100vh;
+  width: 100%;
+}
+
+
+.left-cards {
+  position: absolute;
+  left: 0.5rem;
+  top: 0.5rem;
+  & > * {
+    margin-top: 1rem;
+    
+  }
+}
