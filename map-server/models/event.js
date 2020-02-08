@@ -35,6 +35,9 @@ const event = (sequelize, DataTypes) => {
     });
   };
 
+  Event.addNewEvent = async (event) => {
+
+  }
 
   return Event;
 };
