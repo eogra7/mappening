@@ -1,7 +1,9 @@
+import uuidv4 from 'uuid/v4';
+
 //model 1.0
 const event = (sequelize, DataTypes) => {
   const Event = sequelize.define('event',{
-    id: {
+    eventId: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       unique: true
@@ -22,8 +24,11 @@ const event = (sequelize, DataTypes) => {
     icon: {
       type: DataTypes.STRING,
     },
-    lifespan: {
-      type: DataTypes.INTEGER,
+    startTime: {
+      type: DataTypes.DATE
+    },
+    endTime: {
+      type: DataTypes.DATE
     }
 
   });
@@ -35,9 +40,34 @@ const event = (sequelize, DataTypes) => {
     });
   };
 
+  /**
+   * Creates a new event in the database
+   * @param event the event to add to the database
+   * @returns {Promise<Model> | Model} A promise representing the database add
+   */
   Event.addNewEvent = async (event) => {
+    return Event.create({
+      eventId: uuidv4(),
+      name: event.name,
+      coords: event.coords,
+      description: event.description,
+      category: event.category,
+      icon: event.icon,
+      startTime: event.startTime,
+      endTime: event.endTime
+    });
+  };
 
-  }
+  /**
+   * Deletes the event with the given ID from the DB
+   * @param id the ID of event to DESTROY
+   * @returns {Promise<number> | number} the promise returning success of deletion
+   */
+  Event.deleteEvent = async (id) => {
+    return Event.destroy({
+      where: {eventId: id}
+    })
+  };
 
   return Event;
 };
