@@ -44,3 +44,20 @@ header {
     font-size: 24px
   }
 }
+
+
+.btn {
+  margin-top: 1rem;
+  padding: 0.5rem;
+  display: inline-block;
+  font-family: Metropolis, sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 20px;
+  text-transform: uppercase;
+
+  border: 2px solid #7347ff;
+  color: #7347ff;
+  border-radius: 0.125rem;
+}

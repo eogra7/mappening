@@ -12,4 +12,8 @@ import {MapComponent} from './map.component';
     ])
   ]
 })
-export class MapModule {}
+export class MapModule {
+  constructor() {
+
+  }
+}
