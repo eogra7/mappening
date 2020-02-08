@@ -1,12 +1,20 @@
-import 'dotenv/config'
+  import 'dotenv/config'
 import express from 'express';
 import cors from 'cors';
+import routes from './routes';
+
+
 
 const app = express();
 
 app.use(cors()); //probably don't need if we're using local host (this is useful for accessing foreign domains
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.use('/session', routes.sessions);
+app.use('/user', routes.users);
+app.use('/events', routes.events);
+
 
 
 let users = {

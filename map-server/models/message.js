@@ -4,7 +4,7 @@ const message = (sequelize,DataTypes) => {
       type: DataTypes.STRING,
     },
     coords: {
-      type: DataTypes.DOUBLE,
+      type: DataTypes.ARRAY(DataTypes.DECIMAL),
     },
     icon: {
       type: DataTypes.STRING,
@@ -19,7 +19,7 @@ const message = (sequelize,DataTypes) => {
     Message.hasMany(models.Event);
   };
   */
-  
+
   return Message;
 };
 

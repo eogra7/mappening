@@ -5,7 +5,7 @@ const event = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
     },
     coords: {
-      type: DataTypes.DOUBLE,
+      type: DataTypes.ARRAY(DataTypes.DECIMAL),
     },
     description: {
       type: DataTypes.STRING,
