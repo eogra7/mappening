@@ -2,6 +2,8 @@
   "name": "mapwithstuff",
   "version": "1.0.0",
   "dependencies": {
-    "@angular/cli": "^9.0.1"
+    "@angular/cli": "^9.0.1",
+    "mapbox-gl": "^1.7.0",
+    "prettier": "^1.19.1"
   }
 }
