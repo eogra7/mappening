@@ -1,7 +1,7 @@
 export const Categories = {
-  performance: 'performance',
-  sport: 'sport',
-  food: 'food'
+  performance: 'Performance',
+  sport: 'Sport',
+  food: 'Food'
 };
 
 export type Category = keyof typeof Categories;

@@ -1,11 +1,12 @@
 import { Category } from './category';
 
 export interface IActivity {
-  title: string;
+  name: string;
   description: string;
-  timestamp: string;
-  x: number;
-  y: number;
+  // timestamp: string;
+  coords: number[];
   category: Category;
-  icon?: string;
+  icon: string;
+  startTime: string;
+  endTime: string;
 }

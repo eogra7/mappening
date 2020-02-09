@@ -1,0 +1,42 @@
+<div class="modal-wrapper">
+  <div class="modal-body">
+    <h2>
+      Add an event
+    </h2>
+    <form [formGroup]="form">
+      <mat-form-field>
+        <mat-label>Name</mat-label>
+        <input
+          matInput
+          placeholder="Ex. Lunch in the park"
+          formControlName="name"
+        />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Description</mat-label>
+        <textarea
+          matInput
+          placeholder="Add a description of this event"
+          formControlName="description"
+        ></textarea>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Category</mat-label>
+        <select matNativeControl formControlName="category">
+          <option
+            value="{{ item | lowercase }}"
+            *ngFor="let item of categories"
+          >{{ item }}</option
+          >
+        </select>
+      </mat-form-field>
+    </form>
+    <div class="modal-footer">
+      <button mat-button>Cancel</button>
+      <button mat-flat-button color="primary">Save</button>
+    </div>
+  </div>
+  <div class="modal-background"></div>
+
+</div>
+

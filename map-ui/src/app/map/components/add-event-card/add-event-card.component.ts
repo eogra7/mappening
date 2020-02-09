@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['../nearby-events/nearby-events.component.scss']
 })
 export class AddEventCardComponent implements OnInit {
-
+  modalOpen = true;
   constructor() { }
 
   ngOnInit(): void {

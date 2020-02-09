@@ -1,14 +1,10 @@
-import { AfterViewInit, Component, Inject, OnInit } from '@angular/core';
-import mapboxgl, {
-  GeoJSONSource,
-  MapboxGeoJSONFeature,
-  Source,
-} from 'mapbox-gl';
-import { LocationService } from '../services/location.service';
-import { MapboxService } from './mapbox-service';
-import { MapIcon, MapIcons } from '../models/map-icons';
-import { IActivity } from '../models/activity';
-import { Categories } from '../models/category';
+import {AfterViewInit, Component, Inject, OnInit} from '@angular/core';
+import mapboxgl from 'mapbox-gl';
+import {LocationService} from '../services/location.service';
+import {MapboxService} from './mapbox-service';
+import {MapIcon, MapIcons} from '../models/map-icons';
+import {IActivity} from '../models/activity';
+import {Categories} from '../models/category';
 
 mapboxgl.accessToken =
   'pk.eyJ1IjoiZW9ncmE3IiwiYSI6ImNrNmN5aWtlMDBwbTIza3MweGUxNjNpb2YifQ.N8QUbJPFkhYL1HDemfuDew';
@@ -164,7 +160,7 @@ export class MapComponent implements OnInit, AfterViewInit {
       type: 'Feature' as const,
       geometry: {
         type: 'Point' as const,
-        coordinates: [a.y, a.x],
+        coordinates: a.coords,
       },
       properties: {},
     });

@@ -22,7 +22,7 @@ export class MapboxService {
                   type: 'Feature',
                   geometry: {
                     type: 'Point',
-                    coordinates: [a.y, a.x],
+                    coordinates: a.coords,
                   },
                   properties: {},
                 };
