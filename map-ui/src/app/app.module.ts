@@ -20,7 +20,7 @@ import {MapModule} from './map/map.module';
     BrowserAnimationsModule,
     MapModule
   ],
-  providers: [{provide: Environment, useClass: LocalEnvironment}],
+  providers: [{provide: Environment, useClass: Environment}],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
