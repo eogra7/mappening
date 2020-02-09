@@ -30,7 +30,7 @@ export class ActivityService {
 
   getEvents$() {
     return zip(from(this._activities).pipe(
-      map(a => {
+      map((a: IActivity) => {
         if (a.icon) {
           return a;
         } else {
