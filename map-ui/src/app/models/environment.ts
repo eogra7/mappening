@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 
 @Injectable()
 export class Environment {
-  readonly API_URL: string = '';
+  readonly API_URL: string = '//map.evanogra.com';
 }
 
 @Injectable()
