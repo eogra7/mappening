@@ -29,6 +29,7 @@ export class MapComponent implements OnInit, AfterViewInit {
     this.map = new mapboxgl.Map({
       container: 'map',
       style: 'mapbox://styles/mapbox/light-v10?optimize=true',
+      center: [-71.04496543711397, 42.348377919605184]
     }).on('load', () => this.onMapLoad());
 
     (window as any)._map = this.map;
