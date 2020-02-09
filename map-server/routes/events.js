@@ -46,6 +46,16 @@ router.get('/past', async (req,res) => {
     }
 });
 
+router.get('/distance', async (req, res) => {
+    try {
+        const proxEvents = await req.context.models.Event.getEventsInDistance(req.body);
+        return res.send(proxEvents);
+    } catch (e) {
+        console.log(e);
+        return res.send(e);
+    }
+});
+
 // Gets an event with given ID
 router.get('/:eventId', async (req,res) => {
   try {
@@ -55,6 +65,16 @@ router.get('/:eventId', async (req,res) => {
       console.log(err);
       return res.send(err)
   }
+});
+
+router.get('/category/:eventCat', async (req, res) => {
+    try {
+        const events = await req.context.models.Event.findByCategory(req.params.eventCat);
+        return res.send(events);
+    } catch (e) {
+        console.log(e);
+        return res.send(e);
+    }
 });
 
 // Create an event

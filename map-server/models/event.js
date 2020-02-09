@@ -82,12 +82,38 @@ const event = (sequelize, DataTypes) => {
     })
   };
 
+  // Event.getEventsInDistance = async (val) => {
+  //   const here = val.coord;
+  //   const distance = val.distance;
+  //   return await Event.findAll({
+  //     where: {
+  //       [Op.and]: [
+  //         {
+  //           startTime: {
+  //             [Op.lt]: now
+  //           }
+  //         },
+  //         {
+  //           endTime: {
+  //             [Op.gt]: now
+  //           }
+  //         }
+  //       ]
+  //     }
+  //   })
+  // };
+
   // Find an event by its unique identifier
   Event.findById = async (eventId) => {
     return await Event.findOne({
       where: {id: eventId}
     });
   };
+
+  Event.findByCategory = async (eventCat) =>
+      await Event.findAll({
+        where: {category: eventCat}
+      });
 
   /**
    * Creates a new event in the database
