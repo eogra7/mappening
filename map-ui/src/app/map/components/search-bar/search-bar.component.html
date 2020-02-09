@@ -1,0 +1,16 @@
+<div class="search">
+  <input id="input">
+  <button id="button">🔍</button>
+</div>
+<div class="filter">
+  <button mat-icon-button (click)="toggleVisibility()">
+    <mat-icon>{{ icon }}</mat-icon>
+  </button>
+</div>
+<div class="icon-parent-container" *ngIf="isExtended()">
+  <div class="inner" *ngFor="let item of categoryService.getCategories()">
+    <button (click)="setFilter(item)">
+      <img class="icon" src='{{categoryService.getIconPath(item)}}'>
+    </button>
+  </div>
+</div>

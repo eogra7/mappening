@@ -12,9 +12,11 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import {SearchBarComponent} from './components/search-bar/search-bar.component';
+import {MatIconModule} from '@angular/material/icon';
 
 @NgModule({
-  declarations: [MapComponent, NearbyEventsComponent, AddEventCardComponent, AddEventFormComponent],
+  declarations: [MapComponent, NearbyEventsComponent, AddEventCardComponent, AddEventFormComponent, SearchBarComponent],
   imports: [
     RouterModule.forChild([{path: '', component: MapComponent}]),
     CommonModule,
@@ -25,6 +27,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     MatButtonModule,
     MatInputModule,
     MatFormFieldModule,
+    MatIconModule,
   ],
   providers: [...mapIcons],
 })

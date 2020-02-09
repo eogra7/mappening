@@ -8,7 +8,7 @@ export const MapIcons = new InjectionToken<MapIcon[]>(
 export const mapIcons = [
   ['food', '/assets/food.png'],
   ['performance', '/assets/performance.png'],
-  ['sporting', '/assets/sporting.png'],
+  ['sporting', '/assets/sport.png'],
 ].map(([k, v]) => {
   return {
     provide: MapIcons,
