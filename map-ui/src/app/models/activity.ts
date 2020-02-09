@@ -7,4 +7,5 @@ export interface IActivity {
   x: number;
   y: number;
   category: Category;
+  icon?: string;
 }

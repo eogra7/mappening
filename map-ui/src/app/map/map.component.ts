@@ -1,6 +1,14 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
-import mapboxgl from 'mapbox-gl';
+import { AfterViewInit, Component, Inject, OnInit } from '@angular/core';
+import mapboxgl, {
+  GeoJSONSource,
+  MapboxGeoJSONFeature,
+  Source,
+} from 'mapbox-gl';
 import { LocationService } from '../services/location.service';
+import { MapboxService } from './mapbox-service';
+import { MapIcon, MapIcons } from '../models/map-icons';
+import { IActivity } from '../models/activity';
+import { Categories } from '../models/category';
 
 mapboxgl.accessToken =
   'pk.eyJ1IjoiZW9ncmE3IiwiYSI6ImNrNmN5aWtlMDBwbTIza3MweGUxNjNpb2YifQ.N8QUbJPFkhYL1HDemfuDew';
@@ -8,11 +16,15 @@ mapboxgl.accessToken =
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
-styleUrls: ['./map.component.scss'],
+  styleUrls: ['./map.component.scss'],
 })
 export class MapComponent implements OnInit, AfterViewInit {
   map: mapboxgl.Map;
-  constructor(private readonly location: LocationService) {}
+  constructor(
+    private readonly location: LocationService,
+    private readonly mapbox: MapboxService,
+    @Inject(MapIcons) private readonly icons: MapIcon[],
+  ) {}
 
   ngOnInit(): void {}
 
@@ -26,30 +38,36 @@ export class MapComponent implements OnInit, AfterViewInit {
   }
 
   onMapLoad() {
-    this.setExampleData();
     this.location.getLocation$().subscribe(location => {
       console.log(location.coords);
       const { latitude, longitude } = location.coords;
       // this.addPoint([longitude, latitude]);
       this.flyTo([longitude, latitude]);
       this.addBuildingsLayer3D();
+      this.loadIcons();
     });
-  }
 
-  setExampleData() {
-    let width = 64; // The image will be 64 pixels square
-    let bytesPerPixel = 4; // Each pixel is represented by 4 bytes: red, green, blue, and alpha.
-    let data = new Uint8Array(width * width * bytesPerPixel);
-    for (let x = 0; x < width; x++) {
-      for (let y = 0; y < width; y++) {
-        let offset = (y * width + x) * bytesPerPixel;
-        data[offset + 0] = (y / width) * 255; // red
-        data[offset + 1] = (x / width) * 255; // green
-        data[offset + 2] = 128; // blue
-        data[offset + 3] = 255; // alpha
-      }
-    }
-    this.map.addImage('gradient', { width: width, height: width, data: data });
+
+    Object.keys(Categories).forEach(c => {
+      this.map.addSource(`source_category_${c}`, {
+        type: 'geojson',
+        data: {
+          type: 'FeatureCollection',
+          features: []
+        }
+      });
+      this.map.addLayer({
+        id: `layer_category_${c}`,
+        type: 'symbol',
+        source: `source_category_${c}`,
+        layout: {
+          'icon-image': c,
+          'icon-size': 0.5
+        }
+      })
+    });
+
+    this.mapbox.updateActivityData(this.map);
   }
 
   flyTo(coords) {
@@ -88,17 +106,17 @@ export class MapComponent implements OnInit, AfterViewInit {
   addBuildingsLayer3D() {
     this.map.addLayer(
       {
-        'id': '3d-buildings',
-        'source': 'composite',
+        id: '3d-buildings',
+        source: 'composite',
         'source-layer': 'building',
-        'filter': ['==', 'extrude', 'true'],
-        'type': 'fill-extrusion',
-        'minzoom': 15,
-        'paint': {
+        filter: ['==', 'extrude', 'true'],
+        type: 'fill-extrusion',
+        minzoom: 15,
+        paint: {
           'fill-extrusion-color': '#aaa',
 
-// use an 'interpolate' expression to add a smooth transition effect to the
-// buildings as the user zooms in
+          // use an 'interpolate' expression to add a smooth transition effect to the
+          // buildings as the user zooms in
           'fill-extrusion-height': [
             'interpolate',
             ['linear'],
@@ -106,7 +124,7 @@ export class MapComponent implements OnInit, AfterViewInit {
             15,
             0,
             15.05,
-            ['get', 'height']
+            ['get', 'height'],
           ],
           'fill-extrusion-base': [
             'interpolate',
@@ -115,17 +133,54 @@ export class MapComponent implements OnInit, AfterViewInit {
             15,
             0,
             15.05,
-            ['get', 'min_height']
+            ['get', 'min_height'],
           ],
-          'fill-extrusion-opacity': 0.6
-        }
+          'fill-extrusion-opacity': 0.6,
+        },
       },
-      this.getFirstTextLayer().id
+      this.getFirstTextLayer().id,
     );
   }
 
   getFirstTextLayer(): mapboxgl.Layer {
     const isTextLayer = l => l.layout && l.layout['text-field'];
     return this.map.getStyle().layers.find(isTextLayer);
+  }
+
+  loadIcons() {
+    this.icons.forEach(i => {
+      this.map.loadImage(i.url, (error, image) => {
+        if (error) {
+          throw error;
+        }
+
+        this.map.addImage(i.name, image);
+      });
+    });
+  }
+
+  setActivitiesData(activities: IActivity[]): void {
+    const makeFeature = (a: IActivity) => ({
+      type: 'Feature' as const,
+      geometry: {
+        type: 'Point' as const,
+        coordinates: [a.y, a.x],
+      },
+      properties: {},
+    });
+    let source = this.map.getSource('activities');
+
+    const data = {
+      type: 'FeatureCollection',
+      features: activities.map(makeFeature),
+    } as const;
+    if (source && source.type === 'geojson') {
+      source.setData(data);
+    } else {
+      this.map.addSource('activities', {
+        type: 'geojson',
+        data,
+      });
+    }
   }
 }
