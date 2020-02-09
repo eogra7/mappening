@@ -4,7 +4,7 @@ import uuidv4 from 'uuid/v4';
 const event = (sequelize, DataTypes) => {
   const Event = sequelize.define('event',{
     eventId: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       primaryKey: true,
       unique: true
     },
@@ -36,7 +36,7 @@ const event = (sequelize, DataTypes) => {
   //Find all events
   Event.findAllEvents = async () => {
     return await Event.findAll(); //maybe stringify?
-  }
+  };
 
   // Find an event by its unique identifier
   Event.findById = async (eventId) => {
@@ -52,7 +52,7 @@ const event = (sequelize, DataTypes) => {
    */
   Event.addNewEvent = async (event) => {
     return Event.create({
-      eventId: uuidv4(),
+      eventId: parseInt(uuidv4(), 10),
       name: event.name,
       coords: event.coords,
       description: event.description,

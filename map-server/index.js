@@ -18,8 +18,8 @@ app.use(cors()); //probably don't need if we're using local host (this is useful
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use('/session', routes.sessions);
-app.use('/user', routes.users);
+app.use('/sessions', routes.sessions);
+app.use('/users', routes.users);
 app.use('/events', routes.events);
 
 const eraseDatabaseOnSync = false;
