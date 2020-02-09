@@ -4,7 +4,8 @@
   "scripts": {
     "start:express": "cd map-server && nodemon --exec babel-node src/index.js",
     "start:ng": "cd map-ui && ng serve",
-    "start:both": "concurrently \"npm run start:express\" \"npm run start:ng\""
+    "start:both": "concurrently \"npm run start:express\" \"npm run start:ng\"",
+    "build": "cd map-ui && ng build"
   },
   "dependencies": {
     "@angular/animations": "~9.0.0",
