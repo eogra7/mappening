@@ -1,4 +1,4 @@
-import uuidv4 from 'uuid/v4';
+//import uuidv4 from 'uuid/v4';
 import { Op } from 'sequelize';
 //model 1.0
 const event = (sequelize, DataTypes) => {
@@ -110,6 +110,11 @@ const event = (sequelize, DataTypes) => {
     });
   };
 
+  /**
+   * Finds events by the given category
+   * @param eventCat the category to look for
+   * @returns {Promise<Model[]>} a promise with the events
+   */
   Event.findByCategory = async (eventCat) =>
       await Event.findAll({
         where: {category: eventCat}
@@ -122,7 +127,7 @@ const event = (sequelize, DataTypes) => {
    */
   Event.addNewEvent = async (event) => {
     return Event.create({
-      eventId: parseInt(uuidv4(), 10),
+      eventId: Math.floor(Math.random() * 10000),
       name: event.name,
       coords: event.coords,
       description: event.description,

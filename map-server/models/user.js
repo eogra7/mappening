@@ -1,4 +1,4 @@
-import uuidv4 from 'uuid/v4';
+//import uuidv4 from 'uuid/v4';
 
 const user = (sequelize, DataTypes) => {
         const User = sequelize.define('user', {
@@ -35,14 +35,12 @@ const user = (sequelize, DataTypes) => {
         //create new users
         User.addNewUser = async (user) => {
             console.log('USER', user);
-            const id = parseInt(uuidv4(), 10);
-            console.log(id);
             await User.create({
                 username: user.username,
                 password: user.password,
                 firstName: user.firstName,
                 lastName: user.lastName,
-                userId: id
+                userId: Math.floor(Math.random() * 10000)
             });
         };
 

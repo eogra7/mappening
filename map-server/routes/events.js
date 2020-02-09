@@ -4,7 +4,7 @@ const router = Router();
 
 // Gets all events
 router.get('/all', async (req,res) => {
-  try{
+  try {
     const allEvents = await req.context.models.Event.findAllEvents();
     return res.send(allEvents);
   } catch(err){
