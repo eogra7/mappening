@@ -8,7 +8,7 @@ import { ActivityService } from '../../../services/activity.service';
     <div class="event-list">
       <div class="event-item" *ngFor="let item of events$ | async">
         <h3>{{ item.title }}</h3>
-        <p>{{ item.summary }}</p>
+        <p>{{ item.description }}</p>
         <div class="event-item-time">
           <svg
             width="17"
