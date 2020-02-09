@@ -3,7 +3,7 @@ import { Router } from 'express';
 const router = Router();
 
 // Gets all events
-router.get('/', async (req,res) => {
+router.get('/all', async (req,res) => {
   try{
     const allEvents = await req.context.models.Event.findAllEvents();
     return res.send(allEvents);
@@ -11,6 +11,39 @@ router.get('/', async (req,res) => {
     console.log(err);
     return res.send(err);
   }
+});
+
+// Gets all events happening now
+router.get('/now', async (req,res) => {
+    try{
+        const allEvents = await req.context.models.Event.findCurrentEvents();
+        return res.send(allEvents);
+    } catch(err){
+        console.log(err);
+        return res.send(err);
+    }
+});
+
+// Gets all events happening in the future
+router.get('/future', async (req,res) => {
+    try{
+        const allEvents = await req.context.models.Event.findFutureEvents();
+        return res.send(allEvents);
+    } catch(err){
+        console.log(err);
+        return res.send(err);
+    }
+});
+
+// Gets all events that have already ended
+router.get('/past', async (req,res) => {
+    try{
+        const allEvents = await req.context.models.Event.findPastEvents();
+        return res.send(allEvents);
+    } catch(err){
+        console.log(err);
+        return res.send(err);
+    }
 });
 
 // Gets an event with given ID

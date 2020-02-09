@@ -1,5 +1,5 @@
 import uuidv4 from 'uuid/v4';
-
+import { Op } from 'sequelize';
 //model 1.0
 const event = (sequelize, DataTypes) => {
   const Event = sequelize.define('event',{
@@ -36,6 +36,50 @@ const event = (sequelize, DataTypes) => {
   //Find all events
   Event.findAllEvents = async () => {
     return await Event.findAll(); //maybe stringify?
+  };
+
+  // Find all current events
+  Event.findCurrentEvents = async () => {
+    const now = new Date();
+    return await Event.findAll({
+      where: {
+        [Op.and]: [
+          {
+            startTime: {
+              [Op.lt]: now
+            }
+          },
+          {
+            endTime: {
+              [Op.gt]: now
+            }
+          }
+        ]
+      }
+    })
+  };
+
+  // Find all future events
+  Event.findFutureEvents = async () => {
+    const now = new Date();
+    return await Event.findAll({
+      where: {
+        startTime: {
+          [Op.gt]: now
+        }
+      }
+    })
+  };
+
+  Event.findPastEvents = async () => {
+    const now = new Date();
+    return await Event.findAll({
+      where: {
+        endTime: {
+          [Op.lt]: now
+        }
+      }
+    })
   };
 
   // Find an event by its unique identifier
