@@ -47,6 +47,7 @@ _On Windows (not tested with macOS and Linux):_
 ```
     npm start:both
   ```
+- Alternative method: https://map.evanogra.com/home
 ## Acknowledgments
 Thank you to the mentors and organizers of HackBeanpot 2020 for helping our project idea come to life!
 
