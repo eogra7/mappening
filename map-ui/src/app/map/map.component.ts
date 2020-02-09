@@ -28,7 +28,7 @@ export class MapComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     this.map = new mapboxgl.Map({
       container: 'map',
-      style: 'mapbox://styles/mapbox/light-v10',
+      style: 'mapbox://styles/mapbox/light-v10?optimize=true',
     }).on('load', () => this.onMapLoad());
 
     (window as any)._map = this.map;
