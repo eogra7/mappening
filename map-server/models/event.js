@@ -25,13 +25,18 @@ const event = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
     },
     startTime: {
-      type: DataTypes.DATE
+      type: DataTypes.DATE,
     },
     endTime: {
-      type: DataTypes.DATE
+      type: DataTypes.DATE,
     }
 
   });
+
+  //Find all events
+  Event.findAllEvents = async () => {
+    return await Event.findAll(); //maybe stringify?
+  }
 
   // Find an event by its unique identifier
   Event.findById = async (eventId) => {

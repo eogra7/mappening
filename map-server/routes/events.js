@@ -2,6 +2,12 @@ import { Router } from 'express';
 
 const router = Router();
 
+// Gets all events
+router.get('/', (req,res) => {
+  //console.log('getting all events');
+  const allEvents = req.context.models.Event.findAllEvents();
+  return res.send(allEvents);
+}
 
 // Gets an event with given ID
 router.get('/:eventId', (req,res) => {
