@@ -11,6 +11,9 @@ export class CategoryService {
     return Object.keys(Categories);
   }
   public getIconPath(category: string): string {
-    return '/assets/' + category + '.png';
+    if(category === 'point of interest') {
+      return '/assets/point_of_interest.png';
+    }
+    return '/assets/' + category.replace(' ', '_').toLowerCase() + '.png';
   }
 }

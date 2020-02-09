@@ -1,14 +1,21 @@
 <h2>Know of an Event?</h2>
 <div class="event-list">
   <div class="event-item">
-    <p>Something something make an event please we need the users.</p>
+    <p>Right click on the map to add an event at that location, or create an event at your current location.</p>
     <br />
-    <button
-      class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-      (click)="modalOpen = !modalOpen"
-    >
-      Submit an Event!
-    </button>
+<div class="actions">
+  <button
+    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+    (click)="modalOpen = !modalOpen"
+  >
+    Current Location
+  </button>
+  <button
+    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+    (click)="handleSelectFromMap()"
+  >
+    Select on map
+  </button></div>
   </div>
 </div>
-<app-add-event-form *ngIf="modalOpen"></app-add-event-form>
+<app-add-event-form [(open)]="modalOpen"></app-add-event-form>

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {Observable, ReplaySubject, Subject} from 'rxjs';
+import {tap} from 'rxjs/operators';
 
 export type GeolocationPosition = {
   coords: {
@@ -14,6 +15,7 @@ export type GeolocationPosition = {
 export class LocationService {
   geo;
   private _location = new ReplaySubject<GeolocationPosition>(1);
+  lastLocation: GeolocationPosition;
 
   getLocation$(): Observable<GeolocationPosition> {
     if (!this.geo) {
@@ -22,6 +24,8 @@ export class LocationService {
 
     this.geo.getCurrentPosition(location => this._location.next(location));
 
-    return this._location.asObservable();
+    return this._location.asObservable().pipe(
+      tap(l => this.lastLocation = l)
+    );
   }
 }

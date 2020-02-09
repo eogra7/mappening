@@ -8,6 +8,7 @@ import {CommonModule} from '@angular/common';
 import {HttpClientModule} from '@angular/common/http';
 import {Environment, LocalEnvironment} from './models/environment';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MapModule} from './map/map.module';
 
 @NgModule({
   declarations: [AppComponent, HomeComponent],
@@ -16,9 +17,10 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     AppRoutingModule,
     CommonModule,
     HttpClientModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MapModule
   ],
-  providers: [{ provide: Environment, useClass: LocalEnvironment }],
-  bootstrap: [AppComponent],
+  providers: [{provide: Environment, useClass: LocalEnvironment}],
+  bootstrap: [AppComponent]
 })
 export class AppModule {}

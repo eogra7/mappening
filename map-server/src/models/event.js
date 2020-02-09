@@ -1,41 +1,39 @@
-import uuidv4 from 'uuid/v4';
-import { Op } from 'sequelize';
+import uuidv4 from "uuid/v4";
+import { Op } from "sequelize";
 //model 1.0
 const event = (sequelize, DataTypes) => {
-  const Event = sequelize.define('event',{
+  const Event = sequelize.define("event", {
     eventId: {
       type: DataTypes.STRING,
       primaryKey: true,
       unique: true
     },
     name: {
-      type: DataTypes.STRING,
-      unique: true
+      type: DataTypes.STRING
     },
     coords: {
-      type: DataTypes.ARRAY(DataTypes.DECIMAL),
+      type: DataTypes.ARRAY(DataTypes.DECIMAL)
     },
     description: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING
     },
     category: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING
     },
     icon: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING
     },
     startTime: {
-      type: DataTypes.DATE,
+      type: DataTypes.DATE
     },
     endTime: {
-      type: DataTypes.DATE,
+      type: DataTypes.DATE
     }
-
   });
 
   //Find all events
   Event.findAllEvents = async () => {
-    return await Event.findAll(); //maybe stringify?
+    return await Event.findAll({ order: ["startTime"] }); //maybe stringify?
   };
 
   // Find all current events
@@ -56,7 +54,7 @@ const event = (sequelize, DataTypes) => {
           }
         ]
       }
-    })
+    });
   };
 
   // Find all future events
@@ -68,7 +66,7 @@ const event = (sequelize, DataTypes) => {
           [Op.gt]: now
         }
       }
-    })
+    });
   };
 
   Event.findPastEvents = async () => {
@@ -79,13 +77,13 @@ const event = (sequelize, DataTypes) => {
           [Op.lt]: now
         }
       }
-    })
+    });
   };
 
   // Find an event by its unique identifier
-  Event.findById = async (eventId) => {
+  Event.findById = async eventId => {
     return await Event.findOne({
-      where: {id: eventId}
+      where: { id: eventId }
     });
   };
 
@@ -94,9 +92,11 @@ const event = (sequelize, DataTypes) => {
    * @param event the event to add to the database
    * @returns {Promise<Model> | Model} A promise representing the database add
    */
-  Event.addNewEvent = async (event) => {
+  Event.addNewEvent = async event => {
+    const eventId = (await Event.max("eventId")) + 1;
+
     return Event.create({
-      eventId: parseInt(uuidv4(), 10),
+      eventId,
       name: event.name,
       coords: event.coords,
       description: event.description,
@@ -112,10 +112,10 @@ const event = (sequelize, DataTypes) => {
    * @param id the ID of event to DESTROY
    * @returns {Promise<number> | number} the promise returning success of deletion
    */
-  Event.deleteEvent = async (id) => {
+  Event.deleteEvent = async id => {
     return Event.destroy({
-      where: {eventId: id}
-    })
+      where: { eventId: id }
+    });
   };
 
   return Event;

@@ -1,10 +1,10 @@
-import {AfterViewInit, Component, Inject, OnInit} from '@angular/core';
+import { AfterViewInit, Component, Inject, OnInit } from '@angular/core';
 import mapboxgl from 'mapbox-gl';
-import {LocationService} from '../services/location.service';
-import {MapboxService} from './mapbox-service';
-import {MapIcon, MapIcons} from '../models/map-icons';
-import {IActivity} from '../models/activity';
-import {Categories} from '../models/category';
+import { LocationService } from '../services/location.service';
+import { MapboxService } from '../services/mapbox-service';
+import { MapIcon, MapIcons } from '../models/map-icons';
+import { IActivity } from '../models/activity';
+import { Categories } from '../models/category';
 
 mapboxgl.accessToken =
   'pk.eyJ1IjoiZW9ncmE3IiwiYSI6ImNrNmN5aWtlMDBwbTIza3MweGUxNjNpb2YifQ.N8QUbJPFkhYL1HDemfuDew';
@@ -13,6 +13,7 @@ mapboxgl.accessToken =
   selector: 'app-map',
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss'],
+  providers: [MapboxService],
 })
 export class MapComponent implements OnInit, AfterViewInit {
   map: mapboxgl.Map;
@@ -27,30 +28,29 @@ export class MapComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     this.map = new mapboxgl.Map({
       container: 'map',
-      style: 'mapbox://styles/mapbox/streets-v9',
+      style: 'mapbox://styles/mapbox/light-v10',
     }).on('load', () => this.onMapLoad());
 
     (window as any)._map = this.map;
   }
 
   onMapLoad() {
+    this.mapbox.setMap(this.map);
     this.location.getLocation$().subscribe(location => {
       console.log(location.coords);
       const { latitude, longitude } = location.coords;
       // this.addPoint([longitude, latitude]);
       this.flyTo([longitude, latitude]);
       this.addBuildingsLayer3D();
-      this.loadIcons();
     });
-
 
     Object.keys(Categories).forEach(c => {
       this.map.addSource(`source_category_${c}`, {
         type: 'geojson',
         data: {
           type: 'FeatureCollection',
-          features: []
-        }
+          features: [],
+        },
       });
       this.map.addLayer({
         id: `layer_category_${c}`,
@@ -58,9 +58,9 @@ export class MapComponent implements OnInit, AfterViewInit {
         source: `source_category_${c}`,
         layout: {
           'icon-image': c,
-          'icon-size': 0.5
-        }
-      })
+          'icon-size': 0.5,
+        },
+      });
     });
 
     this.mapbox.updateActivityData(this.map);
@@ -69,7 +69,8 @@ export class MapComponent implements OnInit, AfterViewInit {
   flyTo(coords) {
     this.map.flyTo({
       center: coords,
-      zoom: 15,
+      zoom: 14,
+      speed: 1
     });
   }
 
@@ -141,18 +142,6 @@ export class MapComponent implements OnInit, AfterViewInit {
   getFirstTextLayer(): mapboxgl.Layer {
     const isTextLayer = l => l.layout && l.layout['text-field'];
     return this.map.getStyle().layers.find(isTextLayer);
-  }
-
-  loadIcons() {
-    this.icons.forEach(i => {
-      this.map.loadImage(i.url, (error, image) => {
-        if (error) {
-          throw error;
-        }
-
-        this.map.addImage(i.name, image);
-      });
-    });
   }
 
   setActivitiesData(activities: IActivity[]): void {

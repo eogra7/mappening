@@ -1,5 +1,10 @@
 <div class="search">
-  <input id="input">
+  <input
+    id="input"
+    placeholder="Search"
+    [ngModel]="search$ | async"
+    (input)="handleSearch($event.target.value)"
+  />
   <button id="button">🔍</button>
 </div>
 <div class="filter">
@@ -9,8 +14,12 @@
 </div>
 <div class="icon-parent-container" *ngIf="isExtended()">
   <div class="inner" *ngFor="let item of categoryService.getCategories()">
-    <button (click)="setFilter(item)">
-      <img class="icon" src='{{categoryService.getIconPath(item)}}'>
+    <button
+      *ngIf="item | ucfirst as upperItem"
+      (click)="setFilter(upperItem)"
+      title="{{ upperItem }}"
+    >
+      <img class="icon" src="{{ categoryService.getIconPath(item) }}" />
     </button>
   </div>
 </div>

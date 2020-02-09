@@ -2,6 +2,7 @@
   display: block;
   width: 100%;
   min-height: 100vh;
+  overflow: hidden;
   background-color: #ebebfe;
   margin-top: -0.5rem;
   padding-top: 0.5rem;
@@ -9,7 +10,8 @@
 }
 
 header {
-  margin-top: 0.5rem;
+  margin: -0.25rem;
+  padding: 0.25rem 1rem;
 
   .brand {
     margin-left: 1rem;
@@ -29,16 +31,17 @@ header {
       margin-left: 0.25rem;
       color: #7347ff;
       font-size: 28px;
-      font-family: 'Kanit', sans-serif;
+      font-family: Metropolis, sans-serif;
     }
   }
 }
 
 .background {
-  background-image: url("../home/../../assets/home_background.png");
+  background-image: url('../home/../../assets/home_background.png');
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+  z-index: 0;
   min-width: 100%;
   max-width: 100%;
   min-height: 100%;
@@ -50,48 +53,55 @@ header {
   left: 0;
 }
 
+.background-cover {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  min-height: 100%;
+  background-color: #ebebfe;
+  opacity: 0.75;
+  z-index: -1;
+}
+
 .hero {
   color: #300042;
   margin-top: 5rem;
 
   h2 {
     font-size: 64px;
-    margin-left: .5rem;
-    color: #7347ff;
-    font-family: 'Kanit', sans-serif;
+    margin-left: 0.5rem;
+    color: #300042;
+    font-family: Metropolis, sans-serif;
   }
 
   h3 {
     font-size: 32px;
-    margin-left: .5rem;
-    margin-top: .5rem;
-    color: #7347ff;
-    font-family: 'Kanit', sans-serif;
+    margin-left: 0.5rem;
+    margin-top: 0.5rem;
+    color: #300042;
+    font-family: Metropolis, sans-serif;
     font-style: normal;
   }
 
   .hero-lower {
     height: 214px;
-    position:absolute;
-    width:100%;
-    bottom:50px;
-    text-align:center;
+    width: 100%;
+    text-align: center;
     padding-left: 2rem;
     padding-bottom: 2rem;
   }
 
   .hero-upper {
-    height: 214px;
     padding-left: 2rem;
   }
-
 }
 
 .btn {
   margin-top: 1rem;
   padding: 0.5rem;
   display: inline-block;
-  font-family: 'Kanit', sans-serif;
+  font-family: Metropolis, sans-serif;
   font-style: normal;
   font-weight: 500;
   font-size: 20px;
@@ -104,4 +114,11 @@ header {
   background-color: #7347ff;
   color: white;
   border-radius: 0.125rem;
+}
+
+@media(min-width: 1200px) {
+
+  main {
+    max-width: 60vw;
+  }
 }

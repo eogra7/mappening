@@ -36,10 +36,19 @@ p {
   font-weight: normal;
   font-size: 14px;
   line-height: 14px;
+  max-height: 60vh;
+  overflow-y: auto;
 
-  .event-item {
+  .nearby-event-item.event-item {
     border-bottom: 1px solid #dedede;
     padding: 0.5rem 1rem;
+    cursor: pointer;
+    transition: background-color 100ms linear;
+  }
+
+  .nearby-event-item.event-item.hover,
+  .nearby-event-item.event-item:hover {
+    background-color: #dedede;
   }
 
   .event-item:nth-of-type(1) {
@@ -76,5 +85,11 @@ p {
   padding-bottom: .25rem;
   cursor: pointer;
 
+
+}
+
+.event-list-loading,
+.event-list-empty {
+  padding-left: 1rem;
 
 }
