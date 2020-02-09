@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { of } from 'rxjs';
-import { IEvent } from '../models/event';
+import { IActivity } from '../models/activity';
 
 @Injectable({
   providedIn: 'root',
 })
-export class EventService {
-  private _events: IEvent[] = [
+export class ActivityService {
+  private _events: IActivity[] = [
     {
       title: 'HackBeanpot 2020',
       summary:
