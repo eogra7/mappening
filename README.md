@@ -27,7 +27,7 @@ Our project is a web-based application that allows users to interact with an in-
 ### Software/Services
 > PostgresSQL
 
-> ExpressS
+> ExpressJS
 
 > AngularJS
 
