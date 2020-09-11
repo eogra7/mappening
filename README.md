@@ -1,5 +1,7 @@
 # Mappening
 
+<img src = "https://github.com/eogra7/mappening/blob/master/mappening_images/homescreen.png" align=center width=800 height = 375 alt="Mappening homescreen"/> 
+
 ## Team Vision: 
 An efficient and simple geo-tagging platform to display and allow lesser known events/activites to atttract an individual's attention. 
 <br /> 
@@ -9,16 +11,15 @@ Come find out what's happening on the map, or.... what's Mappening!
 
 Our project is a web-based application that allows users to interact with an in-browser map and view different geo-tagged events/activites that are happening nearby. These events/activites can be clicked to view a description as well as a geographical location; allowing users to attend any geo-tagged activity of their choosing. For organizers and users looking to advertise their events/activities, a form is available to submit necessary information required to create a geo-tag of their own. 
 
-
-<!--- add images of our project here? ---> 
-
 ### Features: 
 - Event creation 
 - View events based on categories
+- Interactable 3D map 
 
+<img src = "https://github.com/eogra7/mappening/blob/master/mappening_images/eventcreation.png" align=center width=460 height = 400 alt="Mappening homescreen"/> 
+<br/>
+<img src = "https://github.com/eogra7/mappening/blob/master/mappening_images/ui.png" align=center width=800 height = 375 alt="Mappening homescreen"/> 
 <br /> 
-
-<!--- add images of features here? ---> 
 
 ## Resources used: 
 ### APIs
